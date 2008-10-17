@@ -121,11 +121,13 @@ module PageAttachmentTags
     raise TagError, "'name' attribute required" unless name = tag.attr.delete('name') or tag.locals.attachment
     page = tag.locals.page
     attachment = tag.locals.attachment || page.attachment(name)
-    size = tag.attr['size'] || nil
+    size = tag.attr.delete('size') || nil
+    alt = tag.attr.delete('alt') || attachment.title
     raise TagError, "attachment is not an image." unless attachment.content_type.strip =~ /^image\//
     filename = attachment.public_filename(size) rescue ""
-    attributes = tag.attr.inject([]){ |a,(k,v)| a << %{#{k}="#{v}"} }.join(" ").strip
-    %{<img src="#{filename}" #{attributes + " " unless attributes.empty?}/>}
+    attributes = tag.attr.inject([]){ |a,(k,v)| a << %{#{k}="#{v}"} }
+    attributes << %{alt="#{alt}"} unless alt.blank?
+    %{<img src="#{filename}" #{attributes.join(" ").strip + " " unless attributes.empty?}/>}
   end
   
   desc %{
@@ -144,10 +146,12 @@ module PageAttachmentTags
     page = tag.locals.page
     attachment = tag.locals.attachment || page.attachment(name)
     label = tag.attr.delete('label') || attachment.filename
+    title = tag.attr.delete('title') || attachment.title
     size = tag.attr.delete('size') || nil
     filename = attachment.public_filename(size) rescue ""
-    attributes = tag.attr.inject([]){ |a,(k,v)| a << %{#{k}="#{v}"} }.join(" ").strip
-    output = %{<a href="#{filename}"#{" " + attributes unless attributes.empty?}>}
+    attributes = tag.attr.inject([]){ |a,(k,v)| a << %{#{k}="#{v}"} }
+    attributes << %{title="#{title}"}
+    output = %{<a href="#{filename}"#{" " + attributes.join(" ").strip unless attributes.empty?}>}
     output << (tag.double? ? tag.expand : label)
     output << "</a>"
   end

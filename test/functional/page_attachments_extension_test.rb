@@ -65,13 +65,15 @@ class PageAttachmentsExtensionTest < Test::Unit::TestCase
   	assert_renders "", '<r:attachment:height name="foo.txt"/>','/'
   	assert_renders "", '<r:attachment:width name="foo.txt"/>','/'
 
-    assert_renders %{<img src="#{img.public_filename}" />}, '<r:attachment:image name="rails.png" />', '/'
-    assert_renders %{<img src="#{img.public_filename}" style="float: right;" />}, '<r:attachment:image name="rails.png" style="float: right;"/>', '/'
+    assert_renders %{<img src="#{img.public_filename}" alt="Rails logo" />}, '<r:attachment:image name="rails.png" />', '/'
+    assert_renders %{<img src="#{img.public_filename}" style="float: right;" alt="Rails logo" />}, '<r:attachment:image name="rails.png" style="float: right;"/>', '/'
+    assert_renders %{<img src="#{img.public_filename}" alt="Custom alt" />}, '<r:attachment:image name="rails.png" alt="Custom alt" />', '/'
     
-    assert_renders %{<a href="#{img.public_filename}">rails.png</a>}, '<r:attachment:link name="rails.png" />', '/'
-    assert_renders %{<a href="#{img.public_filename}" id="mylink">rails.png</a>}, '<r:attachment:link name="rails.png" id="mylink" />', '/'
-    assert_renders %{<a href="#{img.public_filename}">Rails</a>}, '<r:attachment:link name="rails.png">Rails</r:attachment:link>', '/'
-    assert_renders %{<a href="#{img.public_filename}">Rails</a>}, '<r:attachment:link name="rails.png" label="Rails"/>', '/'
+    assert_renders %{<a href="#{img.public_filename}" title="Rails logo">rails.png</a>}, '<r:attachment:link name="rails.png" />', '/'
+    assert_renders %{<a href="#{img.public_filename}" id="mylink" title="Rails logo">rails.png</a>}, '<r:attachment:link name="rails.png" id="mylink" />', '/'
+    assert_renders %{<a href="#{img.public_filename}" title="Rails logo">Rails</a>}, '<r:attachment:link name="rails.png">Rails</r:attachment:link>', '/'
+    assert_renders %{<a href="#{img.public_filename}" title="Rails logo">Rails</a>}, '<r:attachment:link name="rails.png" label="Rails"/>', '/'
+    assert_renders %{<a href="#{img.public_filename}" title="Custom title">rails.png</a>}, '<r:attachment:link name="rails.png" title="Custom title" />', '/'
     
   	assert_renders %{Rails logo},'<r:attachment:title name="rails.png"/>','/'
   	assert_renders %{Rails logo},'<r:attachment:short_title name="rails.png"/>','/'
@@ -106,7 +108,7 @@ class PageAttachmentsExtensionTest < Test::Unit::TestCase
     txt = page_attachments(:foo_txt)
 
     assert_renders "* * ", "<r:attachment:each>* </r:attachment:each>", '/'
-    assert_renders %{<a href="#{txt.public_filename}">foo.txt</a><a href="#{img.public_filename}">rails.png</a>},
+    assert_renders %{<a href="#{txt.public_filename}" title="Text.">foo.txt</a><a href="#{img.public_filename}" title="Rails logo">rails.png</a>},
                   %{<r:attachment:each by="filename"><r:link/></r:attachment:each>}, '/'
   end
   
@@ -114,9 +116,9 @@ class PageAttachmentsExtensionTest < Test::Unit::TestCase
     img = page_attachments(:rails_png)
     txt = page_attachments(:foo_txt)
     
-    assert_renders %{<a href="#{img.public_filename}">rails.png</a>},
+    assert_renders %{<a href="#{img.public_filename}" title="Rails logo">rails.png</a>},
                   %{<r:attachment:each limit="1" offset="1" by="filename"><r:link/></r:attachment:each>}, '/'
-    assert_renders %{<a href="#{txt.public_filename}">foo.txt</a>},
+    assert_renders %{<a href="#{txt.public_filename}" title="Text.">foo.txt</a>},
                   %{<r:attachment:each limit="1" offset="0" by="filename"><r:link/></r:attachment:each>}, '/'
   end
   
