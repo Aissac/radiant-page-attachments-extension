@@ -19,8 +19,8 @@ class PageAttachmentsExtensionTest < Test::Unit::TestCase
     assert Page.included_modules.include?(PageAttachmentTags)
     assert Page.included_modules.include?(PageAttachmentAssociations)
     assert UserActionObserver.included_modules.include?(ObservePageAttachments)
-	assert ActiveRecord::Base.included_modules.include?(ActiveRecord::Acts::List)
-	assert Technoweenie::AttachmentFu
+  	assert ActiveRecord::Base.included_modules.include?(ActiveRecord::Acts::List)
+  	assert Technoweenie::AttachmentFu
 
     assert UserActionObserver.methods.include?('observed_class')
     #assert_equal UserActionObserver.instance.observed_class, [User, Page, Layout, Snippet, Asset]
@@ -62,8 +62,8 @@ class PageAttachmentsExtensionTest < Test::Unit::TestCase
     assert_renders img.content_type, '<r:attachment:content_type name="rails.png" />', '/'
     assert_renders img.created_at.strftime("%Y-%m-%d"), '<r:attachment:date name="rails.png" format="%Y-%m-%d" />', '/'
     assert_renders img.created_by.name, '<r:attachment:author name="rails.png" />', '/'
-	assert_renders "", '<r:attachment:height name="foo.txt"/>','/'
-	assert_renders "", '<r:attachment:width name="foo.txt"/>','/'
+  	assert_renders "", '<r:attachment:height name="foo.txt"/>','/'
+  	assert_renders "", '<r:attachment:width name="foo.txt"/>','/'
 
     assert_renders %{<img src="#{img.public_filename}" />}, '<r:attachment:image name="rails.png" />', '/'
     assert_renders %{<img src="#{img.public_filename}" style="float: right;" />}, '<r:attachment:image name="rails.png" style="float: right;"/>', '/'
@@ -73,19 +73,19 @@ class PageAttachmentsExtensionTest < Test::Unit::TestCase
     assert_renders %{<a href="#{img.public_filename}">Rails</a>}, '<r:attachment:link name="rails.png">Rails</r:attachment:link>', '/'
     assert_renders %{<a href="#{img.public_filename}">Rails</a>}, '<r:attachment:link name="rails.png" label="Rails"/>', '/'
     
-	assert_renders %{Rails logo},'<r:attachment:title name="rails.png"/>','/'
-	assert_renders %{Rails logo},'<r:attachment:short_title name="rails.png"/>','/'
-	assert_renders %{The awesome Rails logo.},'<r:attachment:description name="rails.png"/>','/'
+  	assert_renders %{Rails logo},'<r:attachment:title name="rails.png"/>','/'
+  	assert_renders %{Rails logo},'<r:attachment:short_title name="rails.png"/>','/'
+  	assert_renders %{The awesome Rails logo.},'<r:attachment:description name="rails.png"/>','/'
 
-	assert_renders %{The awesome ...},'<r:attachment:short_description name="rails.png"/>','/'
-	assert_renders %{The aweso ...},'<r:attachment:short_description name="rails.png" length="13" />','/'
-	assert_renders %{The awesome Rails logo.}, '<r:attachment:short_description name="rails.png" length="35" />','/'
+  	assert_renders %{The awesome ...},'<r:attachment:short_description name="rails.png"/>','/'
+  	assert_renders %{The aweso ...},'<r:attachment:short_description name="rails.png" length="13" />','/'
+  	assert_renders %{The awesome Rails logo.}, '<r:attachment:short_description name="rails.png" length="35" />','/'
 
-	assert_renders %{The awesome....}, '<r:attachment:short_description name="rails.png" length="15" suffix="...." />','/'
+  	assert_renders %{The awesome....}, '<r:attachment:short_description name="rails.png" length="15" suffix="...." />','/'
 
-	assert_renders %{rails.png},'<r:attachment:filename name="rails.png"/>','/'
-	assert_renders %{rails.png},'<r:attachment:short_filename name="rails.png"/>','/'
-	assert_renders %{rails...},'<r:attachment:short_filename name="rails.png" suffix="..." length="8" />','/'
+  	assert_renders %{rails.png},'<r:attachment:filename name="rails.png"/>','/'
+  	assert_renders %{rails.png},'<r:attachment:short_filename name="rails.png"/>','/'
+  	assert_renders %{rails...},'<r:attachment:short_filename name="rails.png" suffix="..." length="8" />','/'
 
     assert_render_error "attachment is not an image.", '<r:attachment:image name="foo.txt" />', '/'
   end
@@ -138,7 +138,7 @@ class PageAttachmentsExtensionTest < Test::Unit::TestCase
     assert_renders "", %{<r:if_attachments min_count="3">content</r:if_attachments>}
     assert_renders "content", %{<r:if_attachments min_count="1" extensions="png">content</r:if_attachments>}
   end
-
+  
   def test_extension_tag
     assert_renders "pngtxt", %{<r:attachment:each><r:extension/></r:attachment:each>}
   end
