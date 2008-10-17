@@ -1,4 +1,7 @@
 class PageAttachmentsController < ApplicationController
+  in_place_edit_for :page_attachment, :title
+  in_place_edit_for :page_attachment, :description
+  
 	def move_higher
 		if request.post?
 			@attachment = PageAttachment.find(params[:id])

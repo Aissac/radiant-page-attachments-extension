@@ -11,6 +11,7 @@ module PageAttachmentsInterface
       @buttons_partials ||= []
       @buttons_partials << "attachments_box"
       include_javascript 'page_attachments'
+      include_javascript 'controls'
       include_stylesheet 'admin/page_attachments'
     end
   end
