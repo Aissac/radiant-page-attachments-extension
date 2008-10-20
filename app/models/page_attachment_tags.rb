@@ -123,7 +123,7 @@ module PageAttachmentTags
     attachment = tag.locals.attachment || page.attachment(name)
     size = tag.attr.delete('size') || nil
     alt = tag.attr.delete('alt') || attachment.title
-    raise TagError, "attachment is not an image." unless attachment.content_type.strip =~ /^image\//
+    raise TagError, "attachment is not an image." unless attachment.image?
     filename = attachment.public_filename(size) rescue ""
     attributes = tag.attr.inject([]){ |a,(k,v)| a << %{#{k}="#{v}"} }
     attributes << %{alt="#{alt}"} unless alt.blank?

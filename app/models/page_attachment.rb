@@ -11,6 +11,10 @@ class PageAttachment < ActiveRecord::Base
                :foreign_key => 'updated_by'
                
   belongs_to :page
+  
+  def image?
+    content_type.strip =~ /^image\//
+  end
 
   def short_filename(wanted_length = 15, suffix = ' ...')
 	  (self.filename.length > wanted_length) ? (self.filename[0,(wanted_length - suffix.length)] + suffix) : self.filename

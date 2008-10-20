@@ -1,30 +1,31 @@
 <li id="attachment_<%= attachment.id %>" class="attachment clearfix">
-<div>
-	<%= image_tag "admin/minus.png", :alt => "Delete", :class => 'delete' %>
-	<% unless attachment.first? %>
-		<%= image_tag "admin/move_higher.png", :alt => "Move Higher", :class => 'higher' %>
-	<% end %>
-	<% unless attachment.last? %>
-		<%= image_tag "admin/move_lower.png", :alt => "Move Lower", :class => 'lower' %>
-	<% end %>
-</div>
-  <% unless attachment.thumbnails.empty? %>
-    <%= link_to image_tag(attachment.public_filename("icon")),
-      attachment.public_filename, :class => 'thumbnail' %>
-  <% end %>
-  <% unless attachment.title.blank? %>
-    <p>
-      <strong>Title:</strong>
-    	<%= @attachment = attachment; 
-    	  in_place_editor_field :attachment, :title, {}, 
-    	    {:url => {:controller => '/page_attachments', :action => 'set_page_attachment_title', :id => attachment.id}} %>
-  	</p>
-  	<p>
-  	  <strong>Description:</strong>
-    	<%= @attachment = attachment; 
-    	  in_place_editor_field :attachment, :description, {}, 
-    	    {:url => {:controller => '/page_attachments', :action => 'set_page_attachment_description', :id => attachment.id}} %>
-  	</p>
-	<% end %>
-	<%= link_to attachment.short_filename, attachment.public_filename %>
+  <div class="delete">
+    <%= image_tag "admin/minus.png", :alt => "Delete", :class => 'delete' %>
+  </div>
+  
+  <% if attachment.image? %>
+    <div class="image">
+      <%= image_tag(attachment.public_filename("icon")) %>
+    </div>
+  <% end -%>
+  
+  <div class="order">
+  	<% unless attachment.first? %>
+  		<%= image_tag "admin/move_higher.png", :alt => "Move Higher", :class => 'higher' %>
+  	<% end %>
+  	<% unless attachment.last? %>
+  		<%= image_tag "admin/move_lower.png", :alt => "Move Lower", :class => 'lower' %>
+  	<% end %>
+  </div>
+  <div class="details">
+    <div class="title field">
+      <span class="title" id="attachment_title_<%= attachment.id %>"><%=h attachment.title %></span>
+    </div>
+    <div class="description field">
+      <span id="attachment_description_<%= attachment.id %>"><%=h attachment.description %></span>
+    </div>
+    <div>
+      <p><%=h attachment.filename %> (<%=h attachment.content_type %>)</p>
+    </div>
+  </div>
 </li>

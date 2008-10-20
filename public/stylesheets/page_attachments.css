@@ -31,7 +31,7 @@
 #attachments .attachment-upload img,
 #attachments .attachment img.delete {
   cursor: pointer;
-  padding: 2px;
+  padding: 5px;
   margin-left:7px;
 }
 #attachments .attachment img.higher,
@@ -39,6 +39,7 @@
   cursor: pointer;
   padding: 2px;
   margin-left:6px;
+  display:block;
 }
 #attachments ol {
   list-style-position:outside;
@@ -47,12 +48,34 @@
 }
 #attachments ol li
 {
-  margin-left:20px;
+  margin-left:20px; vertical-align:bottom;
+  position:relative;
 }
-#attachments ol li div 
+#attachments ol li div.order
 {
-  float:left;width:25px;
+    position:absolute;
 }
+
+.attachment div.details {
+  margin-left:40px;
+}
+
+.attachment div.delete {
+  float:right;
+}
+
+.attachment div.image {
+  float:right;
+}
+
+li.attachment {
+  display: list-item !important;
+}
+
+.attachment .field {
+  min-height:1.6em;
+}
+
 #attachments ol li a.thumbnail
 {
   float:left;margin:0 10px 0 10px;
@@ -63,7 +86,7 @@
 }
 #attachments ol li  
 {
-  margin-bottom:10px;border-bottom:1px dashed #cccccc;width:66%;padding-bottom:3px;
+  margin-bottom:10px;border-bottom:1px dashed #cccccc;padding-bottom:3px;
 }
 
 #attachments .attachment .thumbnail img {
@@ -89,4 +112,3 @@
 .clearfix:after                 {content:".";display:block;height:0;clear:both;visibility:hidden;}
 .clearfix                       {display:inline-block;}
 .clearfix                       {display:block;}
-li.clearfix                     {display:list-item;}
