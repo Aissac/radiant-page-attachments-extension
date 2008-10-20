@@ -1,5 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+# Quick hack to allow running this test standalone.
+# Not sure why CustomFileNotFoundPage breaks the test.
+class Object; remove_const :CustomFileNotFoundPage; end
+
 class PageAttachmentsExtensionTest < Test::Unit::TestCase
 
   fixtures :page_attachments, :pages, :users

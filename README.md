@@ -11,12 +11,13 @@ Installation
 
 If you want `page_attachments` to generate and display thumbnails of your uploaded images you'll first need to install one of, [`image_science`][is], [`mini-magick`][mm] or [`rmagick`][rm] on your server. This is completely optional, `page_attachments` will still function in every other way without any of these packages installed.
 
-Next, you need to install the `attachment_fu` plugin.
+Next, you need to install the `attachment_fu` and `in_place_editing` plugins.
 
     cd /path/to/radiant
     git clone git://github.com/technoweenie/attachment_fu.git vendor/plugins/attachment_fu
+    git clone git://github.com/rails/in_place_editing.git vendor/plugins/in_place_editing
 
-If you don't have `git` installed you can simply [download a tarball][af] of `attachment_fu`, upload and unpack it to your `vendor/plugins` directory.
+If you don't have `git` installed you can simply download the tarballs for [`attachment_fu`][af] and [`in_place_editing`][ie], upload and unpack them to your `vendor/plugins` directory.
 
 **Failing to install the `attachment_fu` plugin before proceeding will result in an "`uninitialized constant Technoweenie::AttachmentFu`" error when you try to install `page_attachments`.**
 
@@ -132,3 +133,4 @@ These people have contributed patches that have been added to the extension:
 [djcp]: http://www.kookdujour.com/
 [jb]: http://github.com/jjburka
 [ihoka]: http://github.com/ihoka
+[ie]: http://github.com/rails/in_place_editing/tarball/master
