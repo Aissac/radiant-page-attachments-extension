@@ -12,6 +12,8 @@ class PageAttachment < ActiveRecord::Base
                
   belongs_to :page
   
+  attr_accessible :title, :description
+  
   def image?
     content_type.strip =~ /^image\//
   end
